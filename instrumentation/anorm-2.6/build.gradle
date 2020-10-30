@@ -1,0 +1,39 @@
+apply plugin: 'scala'
+
+repositories {
+    maven {
+        url 'https://dl.bintray.com/typesafe/maven-releases/'
+    }
+}
+
+dependencies {
+    implementation(project(":newrelic-api"))
+    implementation(project(":agent-bridge"))
+    implementation(project(":newrelic-weaver-api"))
+    implementation(project(":newrelic-weaver-scala-api"))
+    implementation("org.scala-lang:scala-library:2.11.12")
+    implementation("org.playframework.anorm:anorm_2.11:2.6.0")
+}
+
+jar {
+    manifest { attributes 'Implementation-Title': 'com.newrelic.instrumentation.anorm-2.6' }
+}
+
+/*
+ * This list is derived from the versions available in:
+ *   http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/anorm_2.10/
+ *   http://dl.bintray.com/typesafe/maven-releases/com/typesafe/play/anorm_2.11/
+ *
+ * We need to support as many as we can, but generally we want to focus only on
+ * releases, not point builds.
+ */
+verifyInstrumentation {
+    passes 'org.playframework.anorm:anorm_2.11:[2.6.0-M1,)'
+    passes 'org.playframework.anorm:anorm_2.12:[2.6.0-M1,)'
+    passes 'org.playframework.anorm:anorm_2.13:[2.6.0-M1,)'
+}
+
+site {
+    title 'Anorm'
+    type 'Datastore'
+}
