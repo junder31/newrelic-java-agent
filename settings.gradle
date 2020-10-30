@@ -45,6 +45,7 @@ if (JavaVersion.current().isJava11Compatible()) {
 include 'instrumentation:anorm-2.0'
 include 'instrumentation:anorm-2.3'
 include 'instrumentation:anorm-2.4'
+include 'instrumentation:anorm-2.6'
 include 'instrumentation:aws-java-sdk-sqs-1.10.44'
 include 'instrumentation:aws-java-sdk-s3-1.2.13'
 include 'instrumentation:aws-java-sdk-s3-2.0'
