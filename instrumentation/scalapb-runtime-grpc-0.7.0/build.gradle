@@ -1,0 +1,30 @@
+apply plugin: 'scala'
+
+jar {
+    manifest { attributes 'Implementation-Title': 'com.newrelic.instrumentation.scalapb-runtime-grpc-0.7.0' }
+}
+
+dependencies {
+    implementation(project(":agent-bridge"))
+    implementation(project(":newrelic-weaver-api"))
+    implementation(project(":newrelic-weaver-scala-api"))
+    implementation("com.thesamet.scalapb:scalapb-runtime-grpc_2.12:0.7.0")
+}
+
+verifyInstrumentation {
+    passes('com.thesamet.scalapb:scalapb-runtime-grpc_2.10:[0.7.0,)')
+    passes('com.thesamet.scalapb:scalapb-runtime-grpc_2.11:[0.7.0,)')
+    passes('com.thesamet.scalapb:scalapb-runtime-grpc_2.12:[0.7.0,)')
+    passes('com.thesamet.scalapb:scalapb-runtime-grpc_2.13:[0.9.0,)')
+}
+
+site {
+    title 'ScalaPB Runtime GRPC'
+    type 'Framework'
+}
+
+test {
+    onlyIf {
+        !project.hasProperty('test6') && !project.hasProperty('test7')
+    }
+}
